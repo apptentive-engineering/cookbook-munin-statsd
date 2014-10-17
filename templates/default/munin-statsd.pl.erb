@@ -48,6 +48,10 @@ my @hostnames	= $node->nodes;
 my $fqdn		= join(".", reverse(split(/\./, $hostnames[0])));
 my @plugins		= $node->list();
 
+<% if @use_tags %>
+my $tags = "host:$fqdn";
+<% end %>
+
 my $statsd_sock	= new IO::Socket::INET (
 	PeerAddr	=> $statsdhost.':'.$statsdport,
 	Proto		=> 'udp'
@@ -58,7 +62,11 @@ my $packet = "";
 foreach my $plugin (@plugins) {
 	my %data = $node->fetch($plugin);
 	foreach my $stat (keys %data) {
+    <% if @use_tags %>
+		$packet .= "$plugin.$stat:".$data{$stat}."|g|#$tags\n";
+    <% else %>
 		$packet .= $schemabase."$fqdn.$plugin.$stat:".$data{$stat}."|g\n";
+    <% end %>
 	}
 }
 

@@ -19,8 +19,10 @@ Tested on Amazon Linux.  Should be platform-neutral.
 Attributes
 ==========
 
-* `node['statsd']['host']` - hostname or ip address of the statsd server. 
+* `node['statsd']['host']` - hostname or ip address of the statsd server.
 * `node['statsd']['host']` - port of the statsd server.  Defaults to 8125
+* `node['statsd']['use_tags']` - true to use tags with DataDog Statsd.  Defaults to false.
+
 
 Recipes
 =======

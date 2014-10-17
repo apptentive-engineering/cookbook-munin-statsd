@@ -32,3 +32,4 @@
 
 default[:statsd][:host]                       = nil
 default[:statsd][:port]                       = 8125
+default[:statsd][:use_tags]                   = false

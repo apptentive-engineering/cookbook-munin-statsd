@@ -44,7 +44,8 @@ template "munin-statsd.pl" do
   mode "0755"
   variables(
     statsd_host:    node[:statsd][:host],
-    statsd_port:    node[:statsd][:port]
+    statsd_port:    node[:statsd][:port],
+    use_tags:       node[:statsd][:use_tags]
   )
 end
 
