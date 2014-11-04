@@ -31,30 +31,29 @@ use Munin::Node::Client;
 use IO::Socket::INET;
 
 # Configuration
-my $schemabase		= "node.";
-my $statsdhost		= "<%= @statsd_host %>";
-my $statsdport		= <%= @statsd_port %>;
-my $muninhost		= "127.0.0.1";
-my $muninport		= 4949;
+my $schemabase    = "node.";
+my $statsdhost    = "<%= @statsd_host %>";
+my $statsdport    = <%= @statsd_port %>;
+my $muninhost     = "127.0.0.1";
+my $muninport     = 4949;
 
 
 $|++;
 
-my $node = Munin::Node::Client->connect(host => $muninhost,
-										port => $muninport);
+my $node = Munin::Node::Client->connect(host => $muninhost, port => $muninport);
 
-my $version		= $node->version;
-my @hostnames	= $node->nodes;
-my $fqdn		= join(".", reverse(split(/\./, $hostnames[0])));
-my @plugins		= $node->list();
+my $version       = $node->version;
+my @hostnames     = $node->nodes;
+my $fqdn          = join(".", reverse(split(/\./, $hostnames[0])));
+my @plugins       = $node->list();
 
 <% if @use_tags %>
 my $tags = "host:$fqdn";
 <% end %>
 
-my $statsd_sock	= new IO::Socket::INET (
-	PeerAddr	=> $statsdhost.':'.$statsdport,
-	Proto		=> 'udp'
+my $statsd_sock = new IO::Socket::INET (
+  PeerAddr  => $statsdhost.':'.$statsdport,
+  Proto     => 'udp'
 ) or die "Error creating socket to statsd!\n";
 
 my $packet = "";
