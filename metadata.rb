@@ -4,6 +4,6 @@ license          "BSD3"
 description      "Installs and Configures the munin-statsd.pl bridge"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 
-version          "0.3"
+version          "0.4"
 
 depends 'perl'

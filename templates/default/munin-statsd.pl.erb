@@ -43,12 +43,12 @@ $|++;
 my $node = Munin::Node::Client->connect(host => $muninhost, port => $muninport);
 
 my $version       = $node->version;
-my @hostnames     = $node->nodes;
-my $fqdn          = join(".", reverse(split(/\./, $hostnames[0])));
+my @hostnames     = split(/\./, ($node->nodes)[0]);
+my $hostname      = @hostnames[0];
 my @plugins       = $node->list();
 
 <% if @use_tags %>
-my $tags = "host:$fqdn";
+my $tags = "host:$hostname";
 <% end %>
 
 my $statsd_sock = new IO::Socket::INET (
