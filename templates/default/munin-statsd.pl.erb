@@ -29,6 +29,7 @@ use strict;
 
 use Munin::Node::Client;
 use IO::Socket::INET;
+use Sys::Hostname;
 
 # Configuration
 my $schemabase    = "node.";
@@ -43,8 +44,7 @@ $|++;
 my $node = Munin::Node::Client->connect(host => $muninhost, port => $muninport);
 
 my $version       = $node->version;
-my @hostnames     = split(/\./, ($node->nodes)[0]);
-my $hostname      = @hostnames[0];
+my $hostname      = hostname;
 my @plugins       = $node->list();
 
 <% if @use_tags %>
