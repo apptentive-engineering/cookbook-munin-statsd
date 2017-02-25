@@ -50,7 +50,7 @@ template "munin-statsd.pl" do
 end
 
 cron 'munin-statsd' do
-  command '/usr/local/bin/munin-statsd.pl'
+  command '/usr/bin/timeout --kill-after 10s 30s /usr/local/bin/munin-statsd.pl 2>&1 > /dev/null'
   only_if { File.exist?("/usr/local/bin/munin-statsd.pl") }
 end
 
